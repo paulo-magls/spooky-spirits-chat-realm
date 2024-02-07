@@ -186,7 +186,7 @@ chatParticipants.addEventListener("click", (event) => {
     websocket.send(JSON.stringify(message))
 })
 
-window.addEventListener('beforeunload', (event) => {
+window.addEventListener('unload', () => {
     message = {
         type: "exit",
         userId: user.id
