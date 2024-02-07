@@ -126,6 +126,9 @@ const handleLogin = (event) => {
     user.x = "50"
     user.y = "50"
 
+    // Limpa o input de login
+    loginInput.value = ""
+
     const message = {
         type: "create",
         userId: user.id,
@@ -186,11 +189,18 @@ chatParticipants.addEventListener("click", (event) => {
     websocket.send(JSON.stringify(message))
 })
 
-window.addEventListener('unload', () => {
-    message = {
-        type: "exit",
-        userId: user.id
+document.addEventListener('visibilitychange', () => {
+    if(document.visibilityState != "visible"){
+        message = {
+            type: "exit",
+            userId: user.id
+        }
+    
+        websocket.send(JSON.stringify(message))
+    
+        title.style.display = "block"
+        login.style.display = "block"
+        link.style.display = "block"
+        chat.style.display = "none"
     }
-
-    websocket.send(JSON.stringify(message))
 })
